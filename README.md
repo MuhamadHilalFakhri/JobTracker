@@ -1,7 +1,6 @@
-# JobTracker 🎯
+# JobTracker
 
-Aplikasi web pelacak lamaran kerja personal — catat, pantau, dan evaluasi seluruh proses rekrutmen dalam satu dashboard. Dibangun dari PRD lengkap (Indonesia) sebagai proyek portfolio full-stack.
-
+Aplikasi web pelacak lamaran kerja personal — catat, pantau, dan evaluasi seluruh proses rekrutmen dalam satu dashboard. 
 ## Fitur MVP
 
 - **Auth Google OAuth** — sesi persisten, proteksi seluruh route via middleware
