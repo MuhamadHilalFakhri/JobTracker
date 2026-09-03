@@ -13,6 +13,7 @@ import { StatusBadge } from "@/components/status-badge"
 import { PriorityBadge } from "@/components/priority-badge"
 import { ChangeStatusDialog } from "@/components/change-status-dialog"
 import { ConfirmDialog } from "@/components/confirm-dialog"
+import { InterviewFormDialog } from "@/components/interview-form"
 import { createNote, deleteNote } from "@/app/actions/notes"
 import { createTask, updateTaskStatus } from "@/app/actions/tasks"
 import { archiveApplication, deleteApplication } from "@/app/actions/applications"
@@ -124,9 +125,11 @@ export function ApplicationDetailClient({
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">Interview & Assessment</CardTitle>
-            <Button variant="outline" size="sm" onClick={() => toast.info("Fitur tambah interview akan segera hadir")}>
-              <Plus className="mr-1 h-3 w-3" />Tambah
-            </Button>
+            <InterviewFormDialog applicationId={app.id} trigger={
+              <Button variant="outline" size="sm">
+                <Plus className="mr-1 h-3 w-3" />Tambah
+              </Button>
+            } />
           </CardHeader>
           <CardContent>
             {app.interviews.length === 0 ? (

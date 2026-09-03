@@ -1,11 +1,10 @@
-import Link from "next/link"
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/ui/theme-toggle"
 import { NavLinks } from "@/components/nav-items"
 import { UserMenu } from "@/components/user-menu"
 import { NotificationBell } from "@/components/notification-bell"
-import { Plus, Menu, Briefcase } from "lucide-react"
+import { Menu, Briefcase } from "lucide-react"
 
 export function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -21,14 +20,24 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
         </div>
       </aside>
 
-      {/* Mobile drawer */}
+      {/* Mobile drawer — trigger di header, content di sini */}
       <Sheet>
-        <SheetTrigger asChild>
-          <Button variant="ghost" size="icon" className="md:hidden" aria-label="Buka menu">
-            <Menu className="h-5 w-5" />
-          </Button>
-        </SheetTrigger>
-        <SheetContent side="left" className="w-64 p-0">
+        <div className="flex min-w-0 flex-1 flex-col">
+          <header className="sticky top-0 z-30 flex h-14 items-center gap-2 border-b bg-background/95 px-3 backdrop-blur sm:px-4">
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon" className="shrink-0 md:hidden" aria-label="Buka menu">
+                <Menu className="h-5 w-5" />
+              </Button>
+            </SheetTrigger>
+            <div className="flex-1" />
+            <NotificationBell />
+            <ThemeToggle />
+            <UserMenu />
+          </header>
+          <main className="flex-1 p-4 md:p-6">{children}</main>
+        </div>
+
+        <SheetContent side="left" className="w-72 p-0">
           <SheetTitle className="sr-only">Menu navigasi</SheetTitle>
           <div className="flex h-14 items-center gap-2 border-b px-4">
             <Briefcase className="h-5 w-5 text-primary" />
@@ -39,19 +48,6 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
           </div>
         </SheetContent>
       </Sheet>
-
-      {/* Main */}
-      <div className="flex min-w-0 flex-1 flex-col">
-        <header className="sticky top-0 z-30 flex h-14 items-center gap-3 border-b bg-background/95 px-4 backdrop-blur">
-          <div className="md:hidden" />
-          <div className="ml-auto flex items-center gap-1">
-            <NotificationBell />
-            <ThemeToggle />
-            <UserMenu />
-          </div>
-        </header>
-        <main className="flex-1 p-4 md:p-6">{children}</main>
-      </div>
     </div>
   )
 }
