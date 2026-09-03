@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
-import { auth } from "@/auth"
+import { getUserId } from "@/lib/session"
 import { db } from "@/lib/db"
 import { jobApplications, companies, applicationSources, contacts } from "@/lib/db/schema"
 import { and, eq, isNull, inArray, sql } from "drizzle-orm"
@@ -13,11 +13,11 @@ function escapeCsv(value: unknown): string {
 }
 
 export async function GET(req: NextRequest) {
-  const session = await auth()
-  if (!session?.user?.id) {
+  const userId = await getUserId()
+  if (!userId) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
   }
-  const userId = session.user.id
+  const uid = userId
 
   // Filter opsional dari query
   const status = req.nextUrl.searchParams.get("status")

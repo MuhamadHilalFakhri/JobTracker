@@ -3,21 +3,21 @@
 import { db } from "@/lib/db"
 import { notifications } from "@/lib/db/schema"
 import { and, eq, isNull } from "drizzle-orm"
-import { auth } from "@/auth"
 import { revalidatePath } from "next/cache"
+import { getUserId } from "@/lib/session"
 
 export async function markNotificationAsRead(id?: string) {
-  const session = await auth()
-  if (!session?.user?.id) return
+  const userId = await getUserId()
+  if (!userId) return
 
   if (id) {
     await db.update(notifications)
       .set({ readAt: new Date() })
-      .where(and(eq(notifications.id, id), eq(notifications.userId, session.user.id)))
+      .where(and(eq(notifications.id, id), eq(notifications.userId, userId)))
   } else {
     await db.update(notifications)
       .set({ readAt: new Date() })
-      .where(and(eq(notifications.userId, session.user.id), isNull(notifications.readAt)))
+      .where(and(eq(notifications.userId, userId), isNull(notifications.readAt)))
   }
   revalidatePath("/dashboard")
 }

@@ -1,5 +1,5 @@
 import { requireUserId } from "@/lib/session"
-import { auth } from "@/auth"
+import { getSessionUser } from "@/lib/session"
 import { db } from "@/lib/db"
 import { users } from "@/lib/db/schema"
 import { eq } from "drizzle-orm"
@@ -12,7 +12,7 @@ export const metadata = { title: "Settings — JobTracker" }
 
 export default async function SettingsPage() {
   const userId = await requireUserId()
-  const session = await auth()
+  const session = await getSessionUser()
 
   const [user] = await db.select().from(users).where(eq(users.id, userId)).limit(1)
 

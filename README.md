@@ -4,19 +4,19 @@ Aplikasi web pelacak lamaran kerja personal — catat, pantau, dan evaluasi selu
 
 ## Fitur MVP
 
-- 🔐 **Auth Google OAuth** — sesi persisten, proteksi seluruh route via middleware
-- 📋 **CRUD Lamaran** — 20+ field (posisi, gaji, sumber, prioritas, tanggal, dst) dengan validasi Zod client + server
-- 📊 **Dashboard** — statistik real-time, agenda terdekat, task aktif, aktivitas terbaru
-- 🗂️ **Tabel + Filter** — pencarian, filter status, sorting, pagination, arsip (state di URL)
-- 🎯 **Kanban drag-and-drop** — 13 kolom status, optimistic update dengan rollback otomatis, alasan wajib untuk Reject/Withdraw
-- 📅 **Kalender** — tampilan bulan & agenda: interview, task, deadline
-- ⏰ **Reminder cron** — idempoten via `deduplication_key` (interview besok, task overdue, follow-up > 14 hari)
-- 🔔 **Notification center** — badge unread, mark all as read
-- 📎 **Dokumen privat** — Vercel Blob private storage, validasi tipe/ukuran, soft delete
-- 🏢 **Perusahaan & Kontak** — deteksi nama mirip, relasi lamaran, rating ketertarikan
-- 📈 **Analytics** — response/interview/offer rate, funnel rekrutmen, sumber efektif, alasan penolakan
-- 📤 **Export CSV** — semua lamaran atau per filter
-- 🌙 **Dark mode** + responsive mobile-first + keyboard accessible
+- **Auth Google OAuth** — sesi persisten, proteksi seluruh route via middleware
+- **CRUD Lamaran** — 20+ field (posisi, gaji, sumber, prioritas, tanggal, dst) dengan validasi Zod client + server
+- **Dashboard** — statistik real-time, agenda terdekat, task aktif, aktivitas terbaru
+- **Tabel + Filter** — pencarian, filter status, sorting, pagination, arsip (state di URL)
+- **Kanban drag-and-drop** — 13 kolom status, optimistic update dengan rollback otomatis, alasan wajib untuk Reject/Withdraw
+- **Kalender** — tampilan bulan & agenda: interview, task, deadline
+- **Reminder cron** — idempoten via `deduplication_key` (interview besok, task overdue, follow-up > 14 hari)
+- **Notification center** — badge unread, mark all as read
+- **Dokumen privat** — Vercel Blob private storage, validasi tipe/ukuran, soft delete
+- **Perusahaan & Kontak** — deteksi nama mirip, relasi lamaran, rating ketertarikan
+- **Analytics** — response/interview/offer rate, funnel rekrutmen, sumber efektif, alasan penolakan
+- **Export CSV** — semua lamaran atau per filter
+- **Dark mode** + responsive mobile-first + keyboard accessible
 
 ## Tech Stack
 

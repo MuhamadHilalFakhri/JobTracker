@@ -1,0 +1,13 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1788422392059,
+      "tag": "0000_broad_sphinx",
+      "breakpoints": true
+    }
+  ]
+}

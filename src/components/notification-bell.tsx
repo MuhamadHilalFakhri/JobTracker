@@ -1,7 +1,6 @@
-import { auth } from "@/auth"
 import { db } from "@/lib/db"
 import { notifications } from "@/lib/db/schema"
-import { eq, and, isNull } from "drizzle-orm"
+import { eq, isNull, and } from "drizzle-orm"
 import { Bell } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
@@ -9,15 +8,16 @@ import {
   DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import Link from "next/link"
+import { getUserId } from "@/lib/session"
 import { markNotificationAsRead } from "@/app/actions/notifications"
 
 export async function NotificationBell() {
-  const session = await auth()
-  if (!session?.user?.id) return null
+  const userId = await getUserId()
+  if (!userId) return null
 
   const items = await db.select()
     .from(notifications)
-    .where(and(eq(notifications.userId, session.user.id)))
+    .where(eq(notifications.userId, userId))
     .orderBy(notifications.createdAt)
     .limit(8)
 

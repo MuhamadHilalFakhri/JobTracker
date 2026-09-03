@@ -49,7 +49,7 @@ export default async function CompanyDetailPage({
                 {company.industry && <span>{company.industry}</span>}
                 {company.location && <span className="flex items-center gap-1"><MapPin className="h-3.5 w-3.5" />{company.location}</span>}
                 {company.companySize && <span>{company.companySize}</span>}
-                {company.interestRating != null && <span>{"★".repeat(company.interestRating)}{"☆".repeat(5 - company.interestRating)}</span>}
+                {company.interestRating != null && <span>Rating {company.interestRating}/5</span>}
               </div>
             </div>
           </div>

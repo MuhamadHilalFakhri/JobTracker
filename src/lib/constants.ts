@@ -12,6 +12,8 @@ export const TASK_TYPES = ["general", "follow-up", "prepare", "test", "other"] a
 export const TASK_STATUSES = ["To Do", "In Progress", "Completed", "Cancelled"] as const;
 export const DATE_FORMATS = ["DD/MM/YYYY", "MM/DD/YYYY", "YYYY-MM-DD"] as const;
 
+export const DEMO_USER_ID = "demo-user";
+
 export const ALLOWED_MIME_TYPES = [
   "application/pdf",
   "application/msword",

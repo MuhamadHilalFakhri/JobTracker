@@ -1,6 +1,6 @@
 "use server"
 
-import { auth } from "@/auth"
+import { getUserId } from "@/lib/session"
 import { db } from "@/lib/db"
 import { contacts, applicationContacts } from "@/lib/db/schema"
 import { and, eq } from "drizzle-orm"
@@ -8,9 +8,9 @@ import { revalidatePath } from "next/cache"
 import { contactSchema } from "@/lib/validations"
 
 async function requireUser() {
-  const session = await auth()
-  if (!session?.user?.id) throw new Error("Unauthorized")
-  return session.user.id
+  const userId = await getUserId()
+  if (!userId) throw new Error("Unauthorized")
+  return userId
 }
 
 export async function createContact(input: unknown) {

@@ -48,22 +48,6 @@ export const STATUS_COLORS: Record<string, string> = {
   "No Response": "bg-zinc-100 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400",
 };
 
-export const STATUS_ICONS: Record<string, string> = {
-  Wishlist: "☆",
-  Preparing: "✎",
-  Applied: "➤",
-  Screening: "👀",
-  Assessment: "📝",
-  "HR Interview": "👤",
-  "User Interview": "👥",
-  "Final Interview": "🎯",
-  Offering: "💰",
-  Accepted: "✓",
-  Rejected: "✕",
-  Withdrawn: "↩",
-  "No Response": "…",
-};
-
 export function requiresAppliedDate(status: string): boolean {
   return !(STATUS_GROUPS.notSent as readonly string[]).includes(status);
 }

@@ -59,7 +59,7 @@ export default async function CompaniesPage() {
                         {c.name.charAt(0).toUpperCase()}
                       </div>
                       {c.interestRating != null && (
-                        <span className="text-sm">{"★".repeat(c.interestRating)}{"☆".repeat(5 - c.interestRating)}</span>
+                        <span className="text-sm text-muted-foreground">Rating {c.interestRating}/5</span>
                       )}
                     </div>
                     <h3 className="mt-3 font-medium">{c.name}</h3>

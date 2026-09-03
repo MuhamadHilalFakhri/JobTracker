@@ -1,6 +1,6 @@
 "use server"
 
-import { auth } from "@/auth"
+import { getUserId } from "@/lib/session"
 import { db } from "@/lib/db"
 import {
   jobApplications, companies, applicationSources, applicationStatusHistories,
@@ -20,9 +20,9 @@ function parseDate(v?: string | null): Date | null {
 }
 
 async function requireUser() {
-  const session = await auth()
-  if (!session?.user?.id) throw new Error("Unauthorized")
-  return session.user.id
+  const userId = await getUserId()
+  if (!userId) throw new Error("Unauthorized")
+  return userId
 }
 
 export type ApplicationInput = {

@@ -128,7 +128,7 @@ export function ApplicationsListClient({
             </DropdownMenuItem>
             {STATUSES.map((s) => (
               <DropdownMenuItem key={s} onClick={() => updateParams({ status: s })}>
-                {s} {params.status === s && "✓"}
+                {s}{params.status === s && " · aktif"}
               </DropdownMenuItem>
             ))}
           </DropdownMenuContent>
