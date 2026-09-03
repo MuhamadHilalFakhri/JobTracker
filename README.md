@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# JobTracker 🎯
 
-## Getting Started
+Aplikasi web pelacak lamaran kerja personal — catat, pantau, dan evaluasi seluruh proses rekrutmen dalam satu dashboard. Dibangun dari PRD lengkap (Indonesia) sebagai proyek portfolio full-stack.
 
-First, run the development server:
+## Fitur MVP
+
+- 🔐 **Auth Google OAuth** — sesi persisten, proteksi seluruh route via middleware
+- 📋 **CRUD Lamaran** — 20+ field (posisi, gaji, sumber, prioritas, tanggal, dst) dengan validasi Zod client + server
+- 📊 **Dashboard** — statistik real-time, agenda terdekat, task aktif, aktivitas terbaru
+- 🗂️ **Tabel + Filter** — pencarian, filter status, sorting, pagination, arsip (state di URL)
+- 🎯 **Kanban drag-and-drop** — 13 kolom status, optimistic update dengan rollback otomatis, alasan wajib untuk Reject/Withdraw
+- 📅 **Kalender** — tampilan bulan & agenda: interview, task, deadline
+- ⏰ **Reminder cron** — idempoten via `deduplication_key` (interview besok, task overdue, follow-up > 14 hari)
+- 🔔 **Notification center** — badge unread, mark all as read
+- 📎 **Dokumen privat** — Vercel Blob private storage, validasi tipe/ukuran, soft delete
+- 🏢 **Perusahaan & Kontak** — deteksi nama mirip, relasi lamaran, rating ketertarikan
+- 📈 **Analytics** — response/interview/offer rate, funnel rekrutmen, sumber efektif, alasan penolakan
+- 📤 **Export CSV** — semua lamaran atau per filter
+- 🌙 **Dark mode** + responsive mobile-first + keyboard accessible
+
+## Tech Stack
+
+| Layer | Tech |
+|---|---|
+| Framework | Next.js 16 (App Router, Turbopack) |
+| Bahasa | TypeScript strict |
+| UI | Tailwind CSS v4 + shadcn/ui (Radix) |
+| Backend | Server Actions + Route Handlers |
+| Database | Neon PostgreSQL (Drizzle ORM) |
+| Auth | Auth.js v5 + Google + Drizzle Adapter |
+| Drag & drop | dnd-kit |
+| Charts | Recharts |
+| Storage | Vercel Blob (private) |
+
+## Menjalankan Lokal
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
+cp .env.example .env.local   # isi DATABASE_URL (Neon), AUTH_SECRET, AUTH_GOOGLE_ID/SECRET
+npx drizzle-kit push         # push schema ke database
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Buka http://localhost:3000 → otomatis redirect ke `/login`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deploy ke Vercel
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Import repo ke Vercel
+2. Buat database Neon via Vercel Marketplace → set `DATABASE_URL`
+3. Set env: `AUTH_SECRET`, `AUTH_GOOGLE_ID`, `AUTH_GOOGLE_SECRET`, `BLOB_READ_WRITE_TOKEN`, `CRON_SECRET`
+4. Callback OAuth Google: `https://<domain>/api/auth/callback/google`
+5. Cron reminder sudah terdaftar di `vercel.json` (harian 01:00 UTC)
 
-## Learn More
+## Struktur
 
-To learn more about Next.js, take a look at the following resources:
+```
+src/
+├── app/
+│   ├── actions/          # Server Actions (CRUD + validasi)
+│   ├── api/              # auth, blob, cron, export, health
+│   ├── dashboard|applications|kanban|calendar|companies|contacts|documents|analytics|settings
+│   └── login/
+├── components/           # Form dialogs, badges, layout, dsb
+├── lib/
+│   ├── db/schema.ts      # 14 tabel Drizzle
+│   ├── queries.ts        # Query relasi + agregasi
+│   ├── validations.ts    # Zod schemas
+│   └── status.ts         # 13 status + grouping + warna
+└── middleware.ts         # Route protection
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Status Workflow
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+Wishlist → Preparing → Applied → Screening → Assessment →
+HR Interview → User Interview → Final Interview → Offering → Accepted
+                                                      ↘ Rejected / Withdrawn / No Response
+```
